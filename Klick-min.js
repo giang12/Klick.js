@@ -8,7 +8,7 @@
  * 
  * Copyright 2013 Giang Nguyen
  * Released under the MIT license.
- * http://giang.is/Klick.v1/LICENSE
+ * https://github.com/giang12/Klick.js/blob/master/LICENSE
  * http://en.wikipedia.org/wiki/MIT_License
  * ======================================================================== */
 
