@@ -2,6 +2,7 @@
  * Klick: Klick.js v1.0.0
  * http://giang.is/Klick.v1/Klick.js
  * http://giang.is/Klick.v1/Klick-min.js
+ * https://github.com/giang12/Klick.js
  * ========================================================================
  * Author: Giang Nguyen.
  * http://giang.is
