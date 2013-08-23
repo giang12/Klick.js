@@ -6,13 +6,29 @@
  * ========================================================================
  * Author: Giang Nguyen.
  * http://giang.is
- * 
+ *
  * Copyright 2013 Giang Nguyen
  * Released under the MIT license.
  * https://github.com/giang12/Klick.js/blob/master/LICENSE
  * http://en.wikipedia.org/wiki/MIT_License
  * ======================================================================== */
+//polyfill CustomEvent IE
+(function () {
+    function CustomEvent(event, params) {
+        params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: undefined
+        };
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    }
 
+    CustomEvent.prototype = window.CustomEvent.prototype;
+
+    window.CustomEvent = CustomEvent;
+})();
 
 var Klick = (function () {
 
@@ -48,7 +64,6 @@ var Klick = (function () {
         default:
             break;
         }
-
         event = new CustomEvent(
             _queryToString(query), {
                 detail: {},
@@ -56,8 +71,13 @@ var Klick = (function () {
                 cancelable: true
             }
         );
-        if(e.preventDefault) {e.preventDefault();}else{ e.returnValue = false;}
-        var target= e.target || e.srcElement;
+
+        if (e.preventDefault) {
+            e.preventDefault();
+        } else {
+            e.returnValue = false;
+        }
+        var target = e.target || e.srcElement;
         if (options.waitStillClickEnd) {
             timer = setTimeout(function () {
                 query.length = 0;
@@ -67,7 +87,7 @@ var Klick = (function () {
             timer = setTimeout(function () {
                 query.length = 0;
             }, options.timeout);
-                target.dispatchEvent(event);
+            target.dispatchEvent(event);
         }
     }
 
