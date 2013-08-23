@@ -48,7 +48,7 @@ var Klick = (function () {
         default:
             break;
         }
-        //console.log(query);
+
         event = new CustomEvent(
             _queryToString(query), {
                 detail: {},
@@ -56,16 +56,18 @@ var Klick = (function () {
                 cancelable: true
             }
         );
+        if(e.preventDefault) {e.preventDefault();}else{ e.returnValue = false;}
+        var target= e.target || e.srcElement;
         if (options.waitStillClickEnd) {
             timer = setTimeout(function () {
                 query.length = 0;
-                e.srcElement.dispatchEvent(event);
+                target.dispatchEvent(event);
             }, options.timeout);
         } else {
             timer = setTimeout(function () {
                 query.length = 0;
             }, options.timeout);
-            e.srcElement.dispatchEvent(event);
+                target.dispatchEvent(event);
         }
     }
 
