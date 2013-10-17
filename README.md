@@ -66,7 +66,7 @@ Klick.config(options)
 Examples:
 ========
 
-rightClick*n => right click n time from 1( NO 0 click cus it makes no sense)
+rightClick*n => right click n time from 1( NO 0 click, it makes no sense)
 
 leftClick*n => left click n time from 1
 
