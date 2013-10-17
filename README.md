@@ -2,7 +2,7 @@ Klick.js
 ========
 addEventListener("leftClick*1000+rightClick*2+middleClick*500",function(){alert("Monkey loves banana")})
 
-Klick.is enables the DOM to listen to a wide range of mouse click events. Sometimes dblclick just doesn't cut it.
+Klick.js enables the DOM to listen to a wide range of mouse click events. Sometimes dblclick just doesn't cut it.
 
 DEMO
 ========
