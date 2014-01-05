@@ -138,10 +138,10 @@ var Klick = (function () {
     }
 
     start();
-
-    this.config = config;
-    this.start = start;
-    this.stop = stop;
-    this.isRunning = isRunning;
-    return this;
+    return{
+        config : config,
+        start : start,
+        stop : stop,
+        isRunning : isRunning
+    };
 })();

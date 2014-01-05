@@ -1,19 +1,14 @@
-/* ========================================================================
- * Klick: Klick.js v1.0.0
- * http://giang.is/Klick.v1/Klick.js
- * http://giang.is/Klick.v1/Klick-min.js
- * https://github.com/giang12/Klick.js
- * ========================================================================
- * Author: Giang Nguyen.
- * http://giang.is
- * 
- * Copyright 2013 Giang Nguyen
- * Released under the MIT license.
- * https://github.com/giang12/Klick.js/blob/master/LICENSE
- * http://en.wikipedia.org/wiki/MIT_License
- * ======================================================================== */
-
-(function(){function c(c,d){d=d||{bubbles:!1,cancelable:!1,detail:void 0};var h=document.createEvent("CustomEvent");h.initCustomEvent(c,d.bubbles,d.cancelable,d.detail);return h}c.prototype=window.CustomEvent.prototype;window.CustomEvent=c})();
-var Klick=function(){function c(a){clearTimeout(k);d(a);switch(a.which){case 1:f.push(g.left);break;case 2:f.push(g.middle);break;case 3:f.push(g.right)}l=new CustomEvent(p(f),{detail:{},bubbles:!0,cancelable:!0});a.preventDefault?a.preventDefault():a.returnValue=!1;var b=a.target||a.srcElement;e.waitStillClickEnd?k=setTimeout(function(){f.length=0;b.dispatchEvent(l)},e.timeout):(k=setTimeout(function(){f.length=0},e.timeout),b.dispatchEvent(l))}function p(a){for(var b=[],c="",d=0;d<a.length;d++)a[d]!==
-b[0]&&0<b.length&&(c=""===c?b[0]+"*"+b.length:c+"+"+b[0]+"*"+b.length,b.length=0),b.push(a[d]);0<b.length&&(c=""===c?b[0]+"*"+b.length:c+"+"+b[0]+"*"+b.length);return c}function d(a){!a.which&&a.button&&(a.button&1?a.which=1:a.button&4?a.which=2:a.button&2&&(a.which=3))}function h(a){"undefined"!==typeof a&&(e.timeout="number"===typeof a.timeout?a.timeout:e.timeout,e.waitStillClickEnd="boolean"===typeof a.waitStillClickEnd?a.waitStillClickEnd:e.waitStillClickEnd)}function m(a){n();h(a);document.addEventListener("click",
-c);g.isRunning=!0}function n(){document.removeEventListener("click",c);g.isRunning=!1}var e={timeout:250,waitStillClickEnd:!1},l,k,g={left:"leftClick",right:"rightClick",middle:"middleClick",isRunning:!0},f=[];m();this.config=h;this.start=m;this.stop=n;this.isRunning=function(){return g.isRunning};return this}();
+(function(){function CustomEvent(event,params){params=params||{bubbles:false,cancelable:false,detail:undefined};var evt=document.createEvent('CustomEvent');evt.initCustomEvent(event,params.bubbles,params.cancelable,params.detail);return evt;}
+CustomEvent.prototype=window.CustomEvent.prototype;window.CustomEvent=CustomEvent;})();var Klick=(function(){var options={timeout:250,waitStillClickEnd:false};var event;var timer;var privateVars={left:"leftClick",right:"rightClick",middle:"middleClick",isRunning:true};var query=[];function _init(e){clearTimeout(timer);_fixWhich(e);switch(e.which){case 1:query.push(privateVars.left);break;case 2:query.push(privateVars.middle);break;case 3:query.push(privateVars.right);break;default:break;}
+event=new CustomEvent(_queryToString(query),{detail:{},bubbles:true,cancelable:true});if(e.preventDefault){e.preventDefault();}else{e.returnValue=false;}
+var target=e.target||e.srcElement;if(options.waitStillClickEnd){timer=setTimeout(function(){query.length=0;target.dispatchEvent(event);},options.timeout);}else{timer=setTimeout(function(){query.length=0;},options.timeout);target.dispatchEvent(event);}}
+function _queryToString(arg){var temp=[];var string="";for(var x=0;x<arg.length;x++){if(arg[x]!==temp[0]&&temp.length>0){string=string===""?(temp[0]+"*"+temp.length):(string+"+"+temp[0]+"*"+temp.length);temp.length=0;}
+temp.push(arg[x]);}
+if(temp.length>0){string=string===""?(temp[0]+"*"+temp.length):(string+"+"+temp[0]+"*"+temp.length);}
+return string;}
+function _fixWhich(e){if(!e.which&&e.button){if(e.button&1)e.which=1;else if(e.button&4)e.which=2;else if(e.button&2)e.which=3;}}
+function config(opts){if(typeof(opts)==='undefined')return;options.timeout=typeof(opts.timeout)==='number'?opts.timeout:options.timeout;options.waitStillClickEnd=typeof(opts.waitStillClickEnd)==='boolean'?opts.waitStillClickEnd:options.waitStillClickEnd;}
+function start(opts){stop();config(opts);document.addEventListener("click",_init);privateVars.isRunning=true;}
+function stop(){document.removeEventListener("click",_init);privateVars.isRunning=false;}
+function isRunning(){return privateVars.isRunning;}
+start();return{config:config,start:start,stop:stop,isRunning:isRunning};})();
