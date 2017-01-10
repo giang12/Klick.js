@@ -6,8 +6,7 @@ Klick.js enables the DOM to listen to a wide range of mouse click events. Someti
 
 DEMO
 ========
-http://jsfiddle.net/tB3NM/30/
-
+http://jsfiddle.net/tB3NM/52/
 
 API
 ========
